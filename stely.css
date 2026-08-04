@@ -1,0 +1,79 @@
+/* ==========================================================================
+   VARIÁVEIS DE TEMA E CONFIGURAÇÃO BASE (CSS PURO)
+   ========================================================================== */
+:root {
+  /* Tema Padrão: Alto Contraste Escuro (Preto e Amarelo Vibrante) */
+  --bg-principal: #000000;
+  --texto-principal: #ffff00;
+  --card-bg: #121212;
+  --borda-cor: #ffff00;
+  --destaque-cor: #00ffff;
+  --foco-cor: #00ffff;
+
+  /* Botões e Interações */
+  --btn-bg: #ffff00;
+  --btn-texto: #000000;
+  --btn-hover-bg: #ffffff;
+  --btn-hover-texto: #000000;
+
+  /* Escala Tipográfica e Espaçamento Acessível */
+  --tamanho-base-fonte: 22px;
+  --altura-linha: 1.8;
+  --espaco-letras: 0.04em;
+}
+
+/* Reset Global Respeitando Acessibilidade */
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  background-color: var(--bg-principal);
+  color: var(--texto-principal);
+  font-family: "Atkinson Hyperlegible", Arial, sans-serif;
+  font-size: var(--tamanho-base-fonte);
+  line-height: var(--altura-linha);
+  letter-spacing: var(--espaco-letras);
+  padding-bottom: 60px;
+}
+
+/* FOCO VISÍVEL E EXPANDIDO PARA NAVEGAÇÃO POR TECLADO (TAB) */
+a:focus-visible,
+button:focus-visible,
+input:focus-visible,
+label:focus-visible {
+  outline: 6px solid var(--foco-cor) !important;
+  outline-offset: 4px !important;
+  background-color: var(--foco-cor) !important;
+  color: #000 !important;
+}
+
+/* ==========================================================================
+   CONTROLES DE ACESSIBILIDADE EM CSS PURO (TRUQUE DO RADIO INPUT)
+   ========================================================================== */
+.radio-control {
+  position: absolute;
+  opacity: 0;
+  pointer-events: none;
+}
+
+/* Estado: Tema Claro Ativado */
+#tema-claro:checked ~ .pagina-wrapper {
+  --bg-principal: #ffffff;
+  --texto-principal: #000000;
+  --card-bg: #f0f0f0;
+  --borda-cor: #000000;
+  --destaque-cor: #0000cd;
+  --foco-cor: #d00000;
+  --btn-bg: #000000;
+  --btn-texto: #ffffff;
+  --btn-hover-bg: #333333;
+  --btn-hover-texto: #ffffff;
+}
+
+/* Estado: Texto Ampliado Ativado */
+#fonte-grande:checked ~ .pagina-wrapper {
+  --tamanho-base-fonte: 28px;
+}

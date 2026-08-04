@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Inteligência Artificial para Pessoas com Baixa Visão</title>
+  
+  <!-- Fonte Atkinson Hyperlegible do Google Fonts (Especial para Baixa Visão) -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible:ital,wght@0,400;0,700;1,400;1,700&display=swap" rel="stylesheet">
+</head>
+<body>
+
+  <!-- CONTROLES VIA RADIO BUTTONS (SEM JAVASCRIPT) -->
+  <input type="radio" name="tema" id="tema-escuro" class="radio-control" checked>
+  <input type="radio" name="tema" id="tema-claro" class="radio-control">
+  
+  <input type="radio" name="tamanho-fonte" id="fonte-normal" class="radio-control" checked>
+  <input type="radio" name="tamanho-fonte" id="fonte-grande" class="radio-control">
+
+  <!-- ENVOLTÓRIO PRINCIPAL DA PÁGINA -->
+  <div class="pagina-wrapper">
+
+    <!-- BARRA FIXA DE ACESSIBILIDADE -->
+    <nav class="barra-acessibilidade" aria-label="Painel de Acessibilidade Visual">
+      
+      <div class="grupo-botoes">
+        <span class="titulo-controle">Contraste:</span>
+        <label for="tema-escuro" class="btn-opcao label-escuro" tabindex="0">
+          Escuro (Amarelo/Preto)
+        </label>
+        <label for="tema-claro" class="btn-opcao label-claro" tabindex="0">
+          Claro (Preto/Branco)
+        </label>
+      </div>
+
+      <div class="grupo-botoes">
+        <span class="titulo-controle">Tamanho do Texto:</span>
+        <label for="fonte-normal" class="btn-opcao label-f-normal" tabindex="0">
+          Texto Normal
+        </label>
