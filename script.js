@@ -11,7 +11,7 @@
         let speechSynth = window.speechSynthesis;
 
         // Inicialização ao carregar o DOM
-        document.addEventListener('DOMContentLoaded', () => {
+        document.addEventListener('DOMContentLoaded', () = {
             loadSavedPreferences();
             setupEventListeners();
             setupKeyboardShortcuts();
@@ -86,7 +86,7 @@
         }
 
         // Função para alterar o tema de contraste
-        function setTheme(themeName) {
+        function setTheme(themeName) 
             const htmlEl = document.documentElement;
             htmlEl.classList.remove('theme-default', 'theme-high-contrast-dark', 'theme-high-contrast-light', 'theme-inverted');
 
@@ -99,7 +99,7 @@
             }
 
             localStorage.setItem('userTheme', themeName);
-        }
+        
 
 
         // Função para leitura de texto usando Web Speech API
@@ -211,7 +211,7 @@
         }
 
         // Carregar preferências salvas do usuário no localStorage
-        function loadSavedPreferences() {
+        function loadSavedPreferences() 
             const savedScale = localStorage.getItem('userFontScale');
             if (savedScale) {
                 currentFontScale = parseFloat(savedScale);
@@ -230,4 +230,4 @@
             if (localStorage.getItem('largeCursor') === 'true') {
                 document.documentElement.classList.add('large-cursor');
             }
-        }
+        
