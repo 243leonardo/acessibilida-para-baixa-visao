@@ -1,122 +1,321 @@
 <!DOCTYPE html>
-<html lang="pt-BR" data-theme="preto-amarelo">
+<html lang="pt-BR" class="theme-default">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>VisãoPlus - Portal Acessível para Baixa Visão</title>
-  /head>
-<body>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Portal Acessivel - Tecnologia para Baixa Visao</title>
 
-  <!-- Link de atalho para leitores de tela e navegacao via teclado -->
-  <a href="#conteudo-principal" class="skip-link">Pular para o conteúdo principal</a>
 
-  <!-- Elemento visual da regua de leitura -->
-  <div id="regua-leitura" aria-hidden="true"></div>
 
-  <!-- Caixa de Notificacao de Acessibilidade -->
-  <div id="caixa-notificacao" role="status" aria-live="polite"></div>
+</head>
+<body class="min-h-screen flex flex-col">
 
-  <header role="banner">
-    <h1>VisãoPlus</h1>
-    <p class="subtitulo">Portal de Informação Otimizado para Pessoas com Baixa Visão</p>
-  </header>
+    <!-- ATALHOS DE TECLADO RaPIDOS PARA LEITORES DE TELA E NAVEGAÇaO -->
+    <a href="#conteudo-principal" class="sr-only-focusable bg-yellow-400 text-black font-bold p-4 z-50 fixed top-2 left-2 rounded-md shadow-2xl border-4 border-black text-xl">
+        Pular para o conteúdo principal (Alt + 1)
+    </a>
 
-  <!-- Painel Principal de Ajustes de Visao -->
-  <section class="painel-acessibilidade" aria-label="Painel de Ferramentas de Acessibilidade">
-    <div class="painel-titulo">
-      <span>👁️ Controles de Acessibilidade Visual</span>
-      <span class="badge-zoom" id="display-zoom-atual">100%</span>
+    <!-- BARRA FIXA DE FERRAMENTAS DE ACESSIBILIDADE -->
+    <header class="sticky top-0 z-40 border-b-4 shadow-lg" style="background-color: var(--bg-card); border-color: var(--border-color);">
+        <div class="max-w-7xl mx-auto px-4 py-3">
+            <div class="flex flex-wrap items-center justify-between gap-3">
+                
+                <!-- Título e Logo do Site -->
+                <div class="flex items-center gap-3">
+                    <i class="ph-bold ph-eye text-3xl" aria-hidden="true" style="color: var(--accent-color);"></i>
+                    <div>
+                        <h1 class="text-xl sm:text-2xl font-black tracking-wide leading-none">
+                            Portal VisãoMais
+                        </h1>
+                        <span class="text-xs font-semibold uppercase tracking-wider block mt-1" style="color: var(--text-secondary);">
+                            Site 100% Adaptado para Baixa Visão
+                        </span>
+                    </div>
+                </div>
+
+                <!-- CONTROLES DE TAMANHO DE LETRA (EXIGÊNCIA PRINCIPAL) -->
+                <div class="flex flex-wrap items-center gap-2" role="region" aria-label="Controles de tamanho de texto">
+                    <span class="font-bold text-sm hidden sm:inline mr-1" id="label-fonte">Tamanho da Letra:</span>
+                    
+                    <button id="btn-increase-font" class="btn-access text-lg" aria-label="Aumentar tamanho do texto" title="Aumentar Fonte (Alt + 2)">
+                        <i class="ph-bold ph-text-a-plus" aria-hidden="true"></i>
+                        <span>A+</span>
+                    </button>
+
+                    <button id="btn-decrease-font" class="btn-access text-lg" aria-label="Diminuir tamanho do texto" title="Diminuir Fonte (Alt + 3)">
+                        <i class="ph-bold ph-text-a-underline" aria-hidden="true"></i>
+                        <span>A-</span>
+                    </button>
+
+                    <button id="btn-reset-font" class="btn-access text-base" aria-label="Restaurar tamanho de texto padrão" title="Restaurar Fonte Padrão">
+                        <i class="ph-bold ph-arrow-counter-clockwise" aria-hidden="true"></i>
+                        <span>100%</span>
+                    </button>
+
+                    <span id="font-size-display" class="font-indicator-badge" aria-live="polite" title="Nível atual de ampliação">
+                        110%
+                    </span>
+                </div>
+
+                <!-- CONTROLES DE TEMAS E FERRAMENTAS EXTRAS -->
+                <div class="flex flex-wrap items-center gap-2" role="region" aria-label="Controles de contraste e auxílio visual">
+                    
+                    <!-- Menu Seleção de Contraste -->
+                    <div class="relative inline-block text-left">
+                        <button id="btn-contrast-toggle" class="btn-access" aria-expanded="false" aria-haspopup="true" title="Alternar modo de contraste (Alt + 4)">
+                            <i class="ph-bold ph-circle-half-tilt text-xl" aria-hidden="true"></i>
+                            <span class="hidden md:inline">Alto Contraste</span>
+                            <i class="ph-bold ph-caret-down" aria-hidden="true"></i>
+                        </button>
+                        
+                        <!-- Dropdown de Opções de Contraste -->
+                        <div id="contrast-menu" class="hidden absolute right-0 mt-2 w-64 rounded-xl shadow-2xl border-4 p-2 z-50" style="background-color: var(--bg-card); border-color: var(--border-color);">
+                            <button class="w-full text-left p-3 rounded-lg font-bold hover:bg-amber-400 hover:text-black mb-1 flex items-center gap-2" onclick="setTheme('default')">
+                                <i class="ph-bold ph-sun text-xl"></i> Padrão Claro
+                            </button>
+                            <button class="w-full text-left p-3 rounded-lg font-bold bg-black text-yellow-300 hover:opacity-90 mb-1 border-2 border-yellow-300 flex items-center gap-2" onclick="setTheme('high-contrast-dark')">
+                                <i class="ph-bold ph-moon-stars text-xl"></i> Escuro (Preto/Amarelo)
+                            </button>
+                            <button class="w-full text-left p-3 rounded-lg font-bold bg-white text-blue-900 hover:bg-blue-100 mb-1 border-2 border-blue-900 flex items-center gap-2" onclick="setTheme('high-contrast-light')">
+                                <i class="ph-bold ph-file-text text-xl"></i> Azul Marinho / Branco
+                            </button>
+                            <button class="w-full text-left p-3 rounded-lg font-bold hover:bg-zinc-700 hover:text-white flex items-center gap-2" onclick="setTheme('inverted')">
+                                <i class="ph-bold ph-arrows-clockwise text-xl"></i> Cores Invertidas
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Botão de Leitor de Voz -->
+                    <button id="btn-read-page" class="btn-access" aria-label="Ouvir conteúdo da página em voz alta" title="Ouvir Texto (Alt + 5)">
+                        <i class="ph-bold ph-speaker-high text-xl" aria-hidden="true"></i>
+                        <span class="hidden lg:inline" id="read-btn-text">Ouvir Página</span>
+                    </button>
+
+                    <!-- Alternador de Fonte para Dislexia/Legibilidade -->
+                    <button id="btn-toggle-dyslexic" class="btn-access" title="Alternar para fonte espaçada">
+                        <i class="ph-bold ph-text-t text-xl" aria-hidden="true"></i>
+                        <span class="sr-only sm:not-sr-only text-sm">Fonte Espaçada</span>
+                    </button>
+
+                    <!-- Alternador de Cursor Grande -->
+                    <button id="btn-toggle-cursor" class="btn-access" title="Aumentar tamanho do ponteiro do mouse">
+                        <i class="ph-bold ph-cursor-click text-xl" aria-hidden="true"></i>
+                        <span class="sr-only sm:not-sr-only text-sm">Cursor+</span>
+                    </button>
+                </div>
+
+            </div>
+        </div>
+    </header>
+
+    <!-- CONTEÚDO PRINCIPAL DA PÁGINA -->
+    <main id="conteudo-principal" class="flex-grow max-w-7xl w-full mx-auto px-4 py-8 space-y-12" tabindex="-1">
+        
+        <!-- SEÇÃO HERO (FACHADA PRINCIPAL) -->
+        <section class="accessible-card rounded-3xl p-6 sm:p-10 relative overflow-hidden">
+            <div class="max-w-3xl space-y-6">
+                
+                <div class="inline-flex items-center gap-2 px-4 py-2 rounded-full border-2 font-black text-sm" style="border-color: var(--accent-color); color: var(--accent-color);">
+                    <i class="ph-bold ph-check-circle text-lg" aria-hidden="true"></i>
+                    Acessibilidade WCAG 2.1 nível AAA
+                </div>
+
+                <h2 class="text-3xl sm:text-5xl font-black leading-tight">
+                    Navegação simples, letras grandes e alto contraste.
+                </h2>
+
+                <p class="text-lg sm:text-xl font-medium leading-relaxed">
+                    Este portal foi criado especificamente para garantir conforto visual e autonomia no acesso à informação para pessoas com <strong>baixa visão, visão subnormal ou daltonismo</strong>.
+                </p>
+
+                <!-- Ações do Hero -->
+                <div class="flex flex-wrap gap-4 pt-2">
+                    <button onclick="speakText('Bem-vindo ao Portal Visão Mais! Você pode usar os botões na parte superior para aumentar a fonte ou mudar as cores do site conforme sua preferência.')" class="btn-access btn-primary px-6 py-4 text-lg rounded-xl flex items-center gap-3">
+                        <i class="ph-bold ph-play-circle text-2xl" aria-hidden="true"></i>
+                        <span>Ouvir Apresentação</span>
+                    </button>
+
+                    <a href="#ferramentas" class="btn-access px-6 py-4 text-lg rounded-xl flex items-center gap-3">
+                        <i class="ph-bold ph-wrench text-2xl" aria-hidden="true"></i>
+                        <span>Conhecer Recursos</span>
+                    </a>
+                </div>
+
+                <!-- Atalhos de Teclado Informativos -->
+                <div class="mt-8 pt-6 border-t-2" style="border-color: var(--border-color);">
+                    <h3 class="font-bold text-base mb-3 flex items-center gap-2">
+                        <i class="ph-bold ph-keyboard text-xl" aria-hidden="true"></i>
+                        Atalhos de Teclado Úteis:
+                    </h3>
+                    <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-3 text-sm font-semibold">
+                        <div class="p-2 rounded border" style="border-color: var(--border-color);">
+                            <kbd class="bg-black text-white dark:bg-white dark:text-black px-2 py-1 rounded font-mono">Alt + 1</kbd> Conteúdo
+                        </div>
+                        <div class="p-2 rounded border" style="border-color: var(--border-color);">
+                            <kbd class="bg-black text-white dark:bg-white dark:text-black px-2 py-1 rounded font-mono">Alt + 2</kbd> Aumentar Letras
+                        </div>
+                        <div class="p-2 rounded border" style="border-color: var(--border-color);">
+                            <kbd class="bg-black text-white dark:bg-white dark:text-black px-2 py-1 rounded font-mono">Alt + 4</kbd> Mudar Contraste
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
+        <!-- SEÇÃO DE RECURSOS DE ACESSIBILIDADE DO SITE -->
+        <section id="ferramentas" class="space-y-6">
+            <div class="flex items-center justify-between border-b-4 pb-3" style="border-color: var(--border-color);">
+                <h2 class="text-2xl sm:text-4xl font-black flex items-center gap-3">
+                    <i class="ph-bold ph-sliders-horizontal" aria-hidden="true"></i>
+                    Recursos Visuais Disponíveis
+                </h2>
+                <button onclick="readSection('ferramentas')" class="btn-access text-sm" title="Ouvir esta seção">
+                    <i class="ph-bold ph-speaker-high" aria-hidden="true"></i> Ler Seção
+                </button>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                
+                <!-- Card 1: Letras Ampliáveis -->
+                <article class="accessible-card p-6 rounded-2xl space-y-4">
+                    <div class="w-14 h-14 rounded-xl flex items-center justify-center text-3xl font-black" style="background-color: var(--accent-color); color: #ffffff;">
+                        A+
+                    </div>
+                    <h3 class="text-2xl font-extrabold">Aumento do Texto</h3>
+                    <p class="text-base font-medium">
+                        Aumente o tamanho dos textos em até 200% sem perder o alinhamento ou quebrar a estrutura da página.
+                    </p>
+                    <button onclick="adjustFontSize(0.15)" class="btn-access w-full justify-center">
+                        <i class="ph-bold ph-plus-circle text-xl"></i> Testar Aumento
+                    </button>
+                </article>
+
+                <!-- Card 2: Modos de Alto Contraste -->
+                <article class="accessible-card p-6 rounded-2xl space-y-4">
+                    <div class="w-14 h-14 rounded-xl flex items-center justify-center text-3xl font-black" style="background-color: var(--accent-color); color: #ffffff;">
+                        <i class="ph-bold ph-paint-brush"></i>
+                    </div>
+                    <h3 class="text-2xl font-extrabold">Alto Contraste</h3>
+                    <p class="text-base font-medium">
+                        Escolha entre fundo preto com letras amarelas brilhantes, azul marinho ou modo claro de altíssimo contraste.
+                    </p>
+                    <button onclick="setTheme('high-contrast-dark')" class="btn-access w-full justify-center">
+                        <i class="ph-bold ph-moon"></i> Ativar Amarelo/Preto
+                    </button>
+                </article>
+
+                <!-- Card 3: Sintese de Voz -->
+                <article class="accessible-card p-6 rounded-2xl space-y-4">
+                    <div class="w-14 h-14 rounded-xl flex items-center justify-center text-3xl font-black" style="background-color: var(--accent-color); color: #ffffff;">
+                        <i class="ph-bold ph-speaker-high"></i>
+                    </div>
+                    <h3 class="text-2xl font-extrabold">Leitor de Tela Nativo</h3>
+                    <p class="text-base font-medium">
+                        Ouça a leitura de qualquer parágrafo ou artigo inteiro diretamente pelo navegador sem precisar de plugins.
+                    </p>
+                    <button onclick="speakText('O leitor de tela está funcionando perfeitamente!')" class="btn-access w-full justify-center">
+                        <i class="ph-bold ph-wave-triangle text-xl"></i> Testar Voz
+                    </button>
+                </article>
+
+            </div>
+        </section>
+
+        <!-- SEÇÃO DE NOTÍCIAS / ARTIGOS COM LEITURA ACESSÍVEL -->
+        <section class="space-y-6">
+            <div class="flex items-center justify-between border-b-4 pb-3" style="border-color: var(--border-color);">
+                <h2 class="text-2xl sm:text-4xl font-black flex items-center gap-3">
+                    <i class="ph-bold ph-newspaper" aria-hidden="true"></i>
+                    Artigos em Destaque
+                </h2>
+            </div>
+
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+                
+                <!-- Artigo 1 -->
+                <article class="accessible-card p-8 rounded-2xl space-y-4" id="artigo-1">
+                    <div class="flex justify-between items-start gap-4">
+                        <span class="px-3 py-1 font-bold text-sm rounded-md border-2" style="border-color: var(--border-color);">Tecnologia Assistiva</span>
+                        <button onclick="readSection('artigo-1')" class="btn-access text-sm" aria-label="Ouvir este artigo">
+                            <i class="ph-bold ph-speaker-high"></i> Ouvir
+                        </button>
+                    </div>
+
+                    <h3 class="text-2xl font-black leading-snug">
+                        Como configurar seu computador para facilitar a leitura diária
+                    </h3>
+
+                    <p class="font-medium text-base leading-relaxed">
+                        Pessoas com visão reduzida se beneficiam muito da personalização dos sistemas operacionais. Ajustar a taxa de atualização do monitor, utilizar a lupa nativa do sistema e aumentar a escala dos elementos da tela em 125% a 150% são os primeiros passos para reduzir a fadiga ocular.
+                    </p>
+
+                    <div class="pt-2">
+                        <button onclick="showToast('Artigo completo aberto com sucesso!')" class="btn-access btn-primary">
+                            <span>Ler Artigo Completo</span>
+                            <i class="ph-bold ph-arrow-right"></i>
+                        </button>
+                    </div>
+                </article>
+
+                <!-- Artigo 2 -->
+                <article class="accessible-card p-8 rounded-2xl space-y-4" id="artigo-2">
+                    <div class="flex justify-between items-start gap-4">
+                        <span class="px-3 py-1 font-bold text-sm rounded-md border-2" style="border-color: var(--border-color);">Saúde Ocular</span>
+                        <button onclick="readSection('artigo-2')" class="btn-access text-sm" aria-label="Ouvir este artigo">
+                            <i class="ph-bold ph-speaker-high"></i> Ouvir
+                        </button>
+                    </div>
+
+                    <h3 class="text-2xl font-black leading-snug">
+                        A importância dos filtros de luz azul e fontes sem serifa
+                    </h3>
+
+                    <p class="font-medium text-base leading-relaxed">
+                        Fontes com pontas ornamentadas (serifas) podem gerar confusão visual na leitura prolongada para quem tem baixa visão. Optar por tipos de letra como Arial, Verdana ou Atkinson Hyperlegible melhora drasticamente a distinção entre letras parecidas como "e", "o" e "c".
+                    </p>
+
+                    <div class="pt-2">
+                        <button onclick="showToast('Artigo completo aberto com sucesso!')" class="btn-access btn-primary">
+                            <span>Ler Artigo Completo</span>
+                            <i class="ph-bold ph-arrow-right"></i>
+                        </button>
+                    </div>
+                </article>
+
+            </div>
+        </section>
+
+    </main>
+
+    <!-- RODAPÉ INSTITUCIONAL E COMPATIBILIDADE GITHUB -->
+    <footer class="mt-16 border-t-4 py-10" style="background-color: var(--bg-card); border-color: var(--border-color);">
+        <div class="max-w-7xl mx-auto px-4 flex flex-col md:flex-row items-center justify-between gap-6 text-center md:text-left">
+            
+            <div class="space-y-2">
+                <div class="flex items-center justify-center md:justify-start gap-2 text-xl font-black">
+                    <i class="ph-bold ph-github-logo text-2xl"></i>
+                    Pronto para Hospedar no GitHub Pages
+                </div>
+                <p class="text-sm font-semibold max-w-md" style="color: var(--text-secondary);">
+                    Código limpo e padronizado em HTML5, CSS3 e JavaScript puro (Vanilla JS).
+                </p>
+            </div>
+
+            <div class="flex flex-wrap items-center justify-center gap-4">
+                <button onclick="window.scrollTo({top: 0, behavior: 'smooth'})" class="btn-access">
+                    <i class="ph-bold ph-arrow-up text-xl"></i>
+                    <span>Voltar ao Topo</span>
+                </button>
+            </div>
+
+        </div>
+    </footer>
+
+    <!-- CAIXA DE NOTIFICAÇÃO ACESSÍVEL (TOAST NO LUGAR DE ALERT) -->
+    <div id="accessible-toast" role="alert" aria-live="assertive">
+        <div class="flex items-center gap-3">
+            <i class="ph-bold ph-info text-2xl" aria-hidden="true" style="color: var(--accent-color);"></i>
+            <span id="toast-text" class="font-bold text-lg">Mensagem da aplicação</span>
+        </div>
     </div>
-
-    <div class="secao-controles">
-      
-      <!-- Controle de Zoom do Texto ate 300% -->
-      <div class="grupo-controle">
-        <label class="rotulo-controle">🔍 Tamanho das Letras (Até 300%):</label>
-        <div class="botoes-grid">
-          <button class="btn-acessivel ativo" onclick="definirZoom(1)" id="btn-zoom-100">100%</button>
-          <button class="btn-acessivel" onclick="definirZoom(1.5)" id="btn-zoom-150">150%</button>
-          <button class="btn-acessivel" onclick="definirZoom(2)" id="btn-zoom-200">200%</button>
-          <button class="btn-acessivel" onclick="definirZoom(2.5)" id="btn-zoom-250">250%</button>
-          <button class="btn-acessivel" onclick="definirZoom(3)" id="btn-zoom-300">300% (Máximo)</button>
-        </div>
-      </div>
-
-      <!-- Seletor de Temas de Alto Contraste -->
-      <div class="grupo-controle">
-        <label class="rotulo-controle">🎨 Esquema de Cores (Alto Contraste):</label>
-        <div class="botoes-grid">
-          <button class="btn-acessivel" onclick="mudarTema('preto-amarelo')">Amarelo no Preto</button>
-          <button class="btn-acessivel" onclick="mudarTema('preto-ciano')">Ciano no Preto</button>
-          <button class="btn-acessivel" onclick="mudarTema('claro-alto-contraste')">Alto Contraste Claro</button>
-          <button class="btn-acessivel" onclick="mudarTema('sepia-suave')">Sépia Antiofuscamento</button>
-        </div>
-      </div>
-
-      <!-- Seletor de Tipografia e Ferramentas Auxiliares -->
-      <div class="grupo-controle">
-        <label class="rotulo-controle">🛠️ Ferramentas Auxiliares de Leitura:</label>
-        <div class="botoes-grid">
-          <button class="btn-acessivel" id="btn-regua" onclick="alternarReguaLeitura()">📏 Alternar Régua de Leitura</button>
-          <button class="btn-acessivel" onclick="mudarFonte('sans')">Fonte Padrão (Arial)</button>
-          <button class="btn-acessivel" onclick="mudarFonte('mono')">Fonte Espaçada (Mono)</button>
-          <button class="btn-acessivel" onclick="alternarEspacamentoLinhas()">↕️ Espaçamento de Linhas</button>
-        </div>
-      </div>
-
-    </div>
-  </section>
-
-  <main id="conteudo-principal" role="main">
-
-    <!-- Card 1: Apresentacao do Portal -->
-    <section class="card" tabindex="0">
-      <h2>📘 Sobre este Portal Acessível</h2>
-      <p>
-        Este site foi desenvolvido seguindo as diretrizes internacionais de acessibilidade (WCAG 2.1). 
-        Ele oferece suporte nativo para pessoas com visão reduzida, catarata, glaucoma, degeneração macular ou sensibilidade à luz (fotofobia).
-      </p>
-      <p>
-        Você pode utilizar os botões do painel no topo da página para alterar o tamanho dos textos até <strong>300% do seu tamanho original</strong> sem que haja quebra ou sobreposição de conteúdo.
-      </p>
-    </section>
-
-    <!-- Card 2: Ferramenta de Sintetizador de Leitura de Voz -->
-    <section class="card" tabindex="0">
-      <h2>🔊 Leitor de Voz para Conteúdo</h2>
-      <p id="texto-para-ler">
-        O leitor de áudio integrado permite ouvir os textos da página com clareza. 
-        Abaixo, você pode iniciar a leitura audível do texto destacado ou pausar quando desejar.
-      </p>
-
-      <div class="botoes-grid" style="margin-top: 15px;">
-        <button class="btn-acessivel" onclick="lerTextoPrincipal()">▶️ Ouvir Texto da Página</button>
-        <button class="btn-acessivel" onclick="pararLeitura()">⏹️ Parar Leitura de Voz</button>
-      </div>
-    </section>
-
-    <!-- Card 3: Recursos de Design Acessivel -->
-    <section class="card" tabindex="0">
-      <h2>🔍 Principais Recursos Incorporados</h2>
-      <ul>
-        <li><strong>Escala Contínua até 300%:</strong> Todo o layout responde proporcionalmente ao aumento da fonte.</li>
-        <li><strong>Foco em Verde Neon:</strong> Ao utilizar a tecla <code>TAB</code>, uma borda espessa destaca o item selecionado.</li>
-        <li><strong>Sem Serifa e com Alto Contraste:</strong> Fontes nítidas para evitar distorções no zoom elevado.</li>
-        <li><strong>Régua de Acompanhamento:</strong> Uma linha guia amarela acompanha o ponteiro do mouse para não perder a linha atual.</li>
-      </ul>
-    </section>
-
-    <section class="secao-codigo" aria-label="Visualizador do Código Separado">
-      <h2>💻 Visualizador de Código Separado</h2>
-      <p>Exibição dos trechos de código em HTML, CSS e JavaScript isolados:</p>
-
-      <div class="abas-codigo" role="tablist">
-        <button class="btn-aba ativa" id="aba-btn-html" onclick="mostrarAba('html')" role="tab" aria-selected="true">HTML Isolado</button>
-        <button class="btn-aba" id="aba-btn-css" onclick="mostrarAba('css')" role="tab" aria-selected="false">CSS Isolado</button>
-        <button class="btn-aba" id="aba-btn-js" onclick="mostrarAba('js')" role="tab" aria-selected="false">JavaScript Isolado</button>
-      </div>
-
-      <!-- Aba HTML -->
-      <div id="aba-html" class="conteudo-aba ativa" role="tabpanel">
-        <button class="btn-acessivel btn-copiar" onclick="copiarCodigo('codigo-html')">📋 Copiar HTML</button>
-        <pre><code id="codigo-html">&lt;!-- Estrutura HTML do Painel de Zoom ate 300% --&gt;

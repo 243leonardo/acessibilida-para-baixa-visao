@@ -1,0 +1,179 @@
+:root {
+            --font-scale: 1.1; /* Escala inicial ligeiramente ampliada para melhor leitura */
+            --base-font-size: 18px;
+            --line-height-factor: 1.6;
+            --letter-spacing: 0.02em;
+            
+            /* Cores padrão */
+            --bg-primary: #f8fafc;
+            --bg-card: #ffffff;
+            --text-primary: #0f172a;
+            --text-secondary: #334155;
+            --accent-color: #1d4ed8;
+            --accent-hover: #1e40af;
+            --border-color: #cbd5e1;
+            --focus-ring: #2563eb;
+        }
+
+        /* TEMA: Alto Contraste Escuro (Preto e Amarelo - Recomendado para Baixa Visão) */
+        html.theme-high-contrast-dark {
+            --bg-primary: #000000;
+            --bg-card: #121212;
+            --text-primary: #ffff00; /* Amarelo vivo sobre preto */
+            --text-secondary: #ffffff;
+            --accent-color: #00ffff; /* Ciano brilhante para interações */
+            --accent-hover: #80ffff;
+            --border-color: #ffff00;
+            --focus-ring: #00ffff;
+        }
+
+        /* TEMA: Alto Contraste Claro */
+        html.theme-high-contrast-light {
+            --bg-primary: #ffffff;
+            --bg-card: #f1f5f9;
+            --text-primary: #000080; /* Azul marinho profundo */
+            --text-secondary: #000000;
+            --accent-color: #b91c1c;
+            --accent-hover: #991b1b;
+            --border-color: #000080;
+            --focus-ring: #b91c1c;
+        }
+
+        /* TEMA: Invertido */
+        html.theme-inverted {
+            --bg-primary: #18181b;
+            --bg-card: #27272a;
+            --text-primary: #f4f4f5;
+            --text-secondary: #e4e4e7;
+            --accent-color: #f59e0b;
+            --accent-hover: #d97706;
+            --border-color: #52525b;
+            --focus-ring: #f59e0b;
+        }
+
+        /* FONTES DYSLEXIC / LEGÍVEIS */
+        html.dyslexic-font body {
+            font-family: 'Courier New', Courier, monospace, sans-serif !important;
+            letter-spacing: 0.08em !important;
+        }
+
+        html {
+            font-size: calc(var(--base-font-size) * var(--font-scale));
+            line-height: var(--line-height-factor);
+            letter-spacing: var(--letter-spacing);
+            scroll-behavior: smooth;
+        }
+
+        body {
+            background-color: var(--bg-primary);
+            color: var(--text-primary);
+            transition: background-color 0.2s ease, color 0.2s ease;
+            font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+        }
+
+        /* Destaque numérico e de bordas hiper-visíveis */
+        .accessible-card {
+            background-color: var(--bg-card);
+            border: 3px solid var(--border-color);
+            color: var(--text-primary);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+        }
+
+        /* Indicador de Foco Ultra Visível para navegação por Teclado (WCAG AAA) */
+        *:focus-visible {
+            outline: 5px solid var(--focus-ring) !important;
+            outline-offset: 4px !important;
+            border-radius: 4px;
+        }
+
+        /* Estilização dos Botões da Barra de Ferramentas */
+        .btn-access {
+            background-color: var(--bg-card);
+            color: var(--text-primary);
+            border: 2px solid var(--border-color);
+            font-weight: 800;
+            padding: 0.5rem 0.85rem;
+            border-radius: 0.5rem;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.4rem;
+            cursor: pointer;
+            transition: transform 0.1s ease, background-color 0.2s ease;
+        }
+
+        .btn-access:hover {
+            background-color: var(--accent-color);
+            color: #ffffff;
+            transform: translateY(-2px);
+        }
+
+        html.theme-high-contrast-dark .btn-access:hover {
+            color: #000000;
+        }
+
+        .btn-primary {
+            background-color: var(--accent-color);
+            color: #ffffff;
+            border: 3px solid var(--border-color);
+            font-weight: 800;
+        }
+
+        html.theme-high-contrast-dark .btn-primary {
+            color: #000000;
+            background-color: var(--text-primary);
+        }
+
+        .btn-primary:hover {
+            opacity: 0.9;
+            transform: scale(1.02);
+        }
+
+        /* Indicador do tamanho da fonte atual */
+        .font-indicator-badge {
+            background-color: var(--accent-color);
+            color: #ffffff;
+            font-weight: bold;
+            padding: 0.2rem 0.6rem;
+            border-radius: 9999px;
+            font-size: 0.85rem;
+        }
+
+        html.theme-high-contrast-dark .font-indicator-badge {
+            color: #000000;
+            background-color: var(--text-primary);
+        }
+
+        /* Classe de aviso / notificacao acessivel */
+        #accessible-toast {
+            position: fixed;
+            bottom: 1.5rem;
+            right: 1.5rem;
+            z-index: 9999;
+            background-color: var(--bg-card);
+            color: var(--text-primary);
+            border: 3px solid var(--accent-color);
+            padding: 1rem 1.5rem;
+            border-radius: 0.75rem;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.3);
+            display: none;
+            max-width: 90vw;
+        }
+
+        /* Esconder visualmente mantendo acessível para leitores de tela */
+        .sr-only-focusable:not(:focus):not(:focus-within) {
+            position: absolute;
+            width: 1px;
+            height: 1px;
+            padding: 0;
+            margin: -1px;
+            overflow: hidden;
+            clip: rect(0, 0, 0, 0);
+            white-space: nowrap;
+            border: 0;
+        }
+
+        /* Cursor Ampliado para facilidade de apontamento */
+        html.large-cursor, html.large-cursor * {
+            cursor: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="36" height="36" viewBox="0 0 24 24" fill="%23ffff00" stroke="%23000000" stroke-width="2"><path d="M3 3l7 18 3-7 7-3L3 3z"/></svg>'), auto !important;
+        }
