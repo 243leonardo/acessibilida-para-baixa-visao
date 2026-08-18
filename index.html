@@ -1,42 +1,122 @@
 <!DOCTYPE html>
-<html lang="pt-BR">
+<html lang="pt-BR" data-theme="preto-amarelo">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Inteligência Artificial para Pessoas com Baixa Visão</title>
-  
-  <!-- Fonte Atkinson Hyperlegible do Google Fonts (Especial para Baixa Visão) -->
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible:ital,wght@0,400;0,700;1,400;1,700&display=swap" rel="stylesheet">
-</head>
+  <title>VisãoPlus - Portal Acessível para Baixa Visão</title>
+  /head>
 <body>
 
-  <!-- CONTROLES VIA RADIO BUTTONS (SEM JAVASCRIPT) -->
-  <input type="radio" name="tema" id="tema-escuro" class="radio-control" checked>
-  <input type="radio" name="tema" id="tema-claro" class="radio-control">
-  
-  <input type="radio" name="tamanho-fonte" id="fonte-normal" class="radio-control" checked>
-  <input type="radio" name="tamanho-fonte" id="fonte-grande" class="radio-control">
+  <!-- Link de atalho para leitores de tela e navegacao via teclado -->
+  <a href="#conteudo-principal" class="skip-link">Pular para o conteúdo principal</a>
 
-  <!-- ENVOLTÓRIO PRINCIPAL DA PÁGINA -->
-  <div class="pagina-wrapper">
+  <!-- Elemento visual da regua de leitura -->
+  <div id="regua-leitura" aria-hidden="true"></div>
 
-    <!-- BARRA FIXA DE ACESSIBILIDADE -->
-    <nav class="barra-acessibilidade" aria-label="Painel de Acessibilidade Visual">
+  <!-- Caixa de Notificacao de Acessibilidade -->
+  <div id="caixa-notificacao" role="status" aria-live="polite"></div>
+
+  <header role="banner">
+    <h1>VisãoPlus</h1>
+    <p class="subtitulo">Portal de Informação Otimizado para Pessoas com Baixa Visão</p>
+  </header>
+
+  <!-- Painel Principal de Ajustes de Visao -->
+  <section class="painel-acessibilidade" aria-label="Painel de Ferramentas de Acessibilidade">
+    <div class="painel-titulo">
+      <span>👁️ Controles de Acessibilidade Visual</span>
+      <span class="badge-zoom" id="display-zoom-atual">100%</span>
+    </div>
+
+    <div class="secao-controles">
       
-      <div class="grupo-botoes">
-        <span class="titulo-controle">Contraste:</span>
-        <label for="tema-escuro" class="btn-opcao label-escuro" tabindex="0">
-          Escuro (Amarelo/Preto)
-        </label>
-        <label for="tema-claro" class="btn-opcao label-claro" tabindex="0">
-          Claro (Preto/Branco)
-        </label>
+      <!-- Controle de Zoom do Texto ate 300% -->
+      <div class="grupo-controle">
+        <label class="rotulo-controle">🔍 Tamanho das Letras (Até 300%):</label>
+        <div class="botoes-grid">
+          <button class="btn-acessivel ativo" onclick="definirZoom(1)" id="btn-zoom-100">100%</button>
+          <button class="btn-acessivel" onclick="definirZoom(1.5)" id="btn-zoom-150">150%</button>
+          <button class="btn-acessivel" onclick="definirZoom(2)" id="btn-zoom-200">200%</button>
+          <button class="btn-acessivel" onclick="definirZoom(2.5)" id="btn-zoom-250">250%</button>
+          <button class="btn-acessivel" onclick="definirZoom(3)" id="btn-zoom-300">300% (Máximo)</button>
+        </div>
       </div>
 
-      <div class="grupo-botoes">
-        <span class="titulo-controle">Tamanho do Texto:</span>
-        <label for="fonte-normal" class="btn-opcao label-f-normal" tabindex="0">
-          Texto Normal
-        </label>
+      <!-- Seletor de Temas de Alto Contraste -->
+      <div class="grupo-controle">
+        <label class="rotulo-controle">🎨 Esquema de Cores (Alto Contraste):</label>
+        <div class="botoes-grid">
+          <button class="btn-acessivel" onclick="mudarTema('preto-amarelo')">Amarelo no Preto</button>
+          <button class="btn-acessivel" onclick="mudarTema('preto-ciano')">Ciano no Preto</button>
+          <button class="btn-acessivel" onclick="mudarTema('claro-alto-contraste')">Alto Contraste Claro</button>
+          <button class="btn-acessivel" onclick="mudarTema('sepia-suave')">Sépia Antiofuscamento</button>
+        </div>
+      </div>
+
+      <!-- Seletor de Tipografia e Ferramentas Auxiliares -->
+      <div class="grupo-controle">
+        <label class="rotulo-controle">🛠️ Ferramentas Auxiliares de Leitura:</label>
+        <div class="botoes-grid">
+          <button class="btn-acessivel" id="btn-regua" onclick="alternarReguaLeitura()">📏 Alternar Régua de Leitura</button>
+          <button class="btn-acessivel" onclick="mudarFonte('sans')">Fonte Padrão (Arial)</button>
+          <button class="btn-acessivel" onclick="mudarFonte('mono')">Fonte Espaçada (Mono)</button>
+          <button class="btn-acessivel" onclick="alternarEspacamentoLinhas()">↕️ Espaçamento de Linhas</button>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <main id="conteudo-principal" role="main">
+
+    <!-- Card 1: Apresentacao do Portal -->
+    <section class="card" tabindex="0">
+      <h2>📘 Sobre este Portal Acessível</h2>
+      <p>
+        Este site foi desenvolvido seguindo as diretrizes internacionais de acessibilidade (WCAG 2.1). 
+        Ele oferece suporte nativo para pessoas com visão reduzida, catarata, glaucoma, degeneração macular ou sensibilidade à luz (fotofobia).
+      </p>
+      <p>
+        Você pode utilizar os botões do painel no topo da página para alterar o tamanho dos textos até <strong>300% do seu tamanho original</strong> sem que haja quebra ou sobreposição de conteúdo.
+      </p>
+    </section>
+
+    <!-- Card 2: Ferramenta de Sintetizador de Leitura de Voz -->
+    <section class="card" tabindex="0">
+      <h2>🔊 Leitor de Voz para Conteúdo</h2>
+      <p id="texto-para-ler">
+        O leitor de áudio integrado permite ouvir os textos da página com clareza. 
+        Abaixo, você pode iniciar a leitura audível do texto destacado ou pausar quando desejar.
+      </p>
+
+      <div class="botoes-grid" style="margin-top: 15px;">
+        <button class="btn-acessivel" onclick="lerTextoPrincipal()">▶️ Ouvir Texto da Página</button>
+        <button class="btn-acessivel" onclick="pararLeitura()">⏹️ Parar Leitura de Voz</button>
+      </div>
+    </section>
+
+    <!-- Card 3: Recursos de Design Acessivel -->
+    <section class="card" tabindex="0">
+      <h2>🔍 Principais Recursos Incorporados</h2>
+      <ul>
+        <li><strong>Escala Contínua até 300%:</strong> Todo o layout responde proporcionalmente ao aumento da fonte.</li>
+        <li><strong>Foco em Verde Neon:</strong> Ao utilizar a tecla <code>TAB</code>, uma borda espessa destaca o item selecionado.</li>
+        <li><strong>Sem Serifa e com Alto Contraste:</strong> Fontes nítidas para evitar distorções no zoom elevado.</li>
+        <li><strong>Régua de Acompanhamento:</strong> Uma linha guia amarela acompanha o ponteiro do mouse para não perder a linha atual.</li>
+      </ul>
+    </section>
+
+    <section class="secao-codigo" aria-label="Visualizador do Código Separado">
+      <h2>💻 Visualizador de Código Separado</h2>
+      <p>Exibição dos trechos de código em HTML, CSS e JavaScript isolados:</p>
+
+      <div class="abas-codigo" role="tablist">
+        <button class="btn-aba ativa" id="aba-btn-html" onclick="mostrarAba('html')" role="tab" aria-selected="true">HTML Isolado</button>
+        <button class="btn-aba" id="aba-btn-css" onclick="mostrarAba('css')" role="tab" aria-selected="false">CSS Isolado</button>
+        <button class="btn-aba" id="aba-btn-js" onclick="mostrarAba('js')" role="tab" aria-selected="false">JavaScript Isolado</button>
+      </div>
+
+      <!-- Aba HTML -->
+      <div id="aba-html" class="conteudo-aba ativa" role="tabpanel">
+        <button class="btn-acessivel btn-copiar" onclick="copiarCodigo('codigo-html')">📋 Copiar HTML</button>
+        <pre><code id="codigo-html">&lt;!-- Estrutura HTML do Painel de Zoom ate 300% --&gt;
