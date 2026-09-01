@@ -1,179 +1,233 @@
 :root {
-            --font-scale: 1.1; /* Escala inicial ligeiramente ampliada para melhor leitura */
-            --base-font-size: 18px;
-            --line-height-factor: 1.6;
-            --letter-spacing: 0.02em;
-            
-            /* Cores padrão */
-            --bg-primary: #f8fafc;
-            --bg-card: #ffffff;
-            --text-primary: #0f172a;
-            --text-secondary: #334155;
-            --accent-color: #1d4ed8;
-            --accent-hover: #1e40af;
-            --border-color: #cbd5e1;
-            --focus-ring: #2563eb;
-        }
+      --font-scale: 1.0; /* 100% como padrão */
+      --font-family-base: Arial, Helvetica, sans-serif;
+      --font-family-dyslexic: 'OpenDyslexic', 'Comic Sans MS', sans-serif;
+      
+      /* Tema Padrão */
+      --bg-color: #f8f9fa;
+      --card-bg: #ffffff;
+      --text-color: #1a1a1a;
+      --primary-color: #0056b3;
+      --primary-hover: #004085;
+      --btn-text: #ffffff;
+      --border-color: #cccccc;
+      --focus-ring: #28a745;
+      --toast-bg: #323232;
+      --toast-text: #ffffff;
+    }
 
-        /* TEMA: Alto Contraste Escuro (Preto e Amarelo - Recomendado para Baixa Visão) */
-        html.theme-high-contrast-dark {
-            --bg-primary: #000000;
-            --bg-card: #121212;
-            --text-primary: #ffff00; /* Amarelo vivo sobre preto */
-            --text-secondary: #ffffff;
-            --accent-color: #00ffff; /* Ciano brilhante para interações */
-            --accent-hover: #80ffff;
-            --border-color: #ffff00;
-            --focus-ring: #00ffff;
-        }
+    /* Tema Escuro - Alto Contraste Amarelo/Preto (Ideal para Baixa Visão) */
+    html.theme-high-contrast-dark {
+      --bg-color: #000000;
+      --card-bg: #121212;
+      --text-color: #ffff00;
+      --primary-color: #ffff00;
+      --primary-hover: #e6e600;
+      --btn-text: #000000;
+      --border-color: #ffff00;
+      --focus-ring: #00ffff;
+      --toast-bg: #ffff00;
+      --toast-text: #000000;
+    }
 
-        /* TEMA: Alto Contraste Claro */
-        html.theme-high-contrast-light {
-            --bg-primary: #ffffff;
-            --bg-card: #f1f5f9;
-            --text-primary: #000080; /* Azul marinho profundo */
-            --text-secondary: #000000;
-            --accent-color: #b91c1c;
-            --accent-hover: #991b1b;
-            --border-color: #000080;
-            --focus-ring: #b91c1c;
-        }
+    /* Tema Claro - Alto Contraste Padrão */
+    html.theme-high-contrast-light {
+      --bg-color: #ffffff;
+      --card-bg: #f0f0f0;
+      --text-color: #000000;
+      --primary-color: #000000;
+      --primary-hover: #333333;
+      --btn-text: #ffffff;
+      --border-color: #000000;
+      --focus-ring: #ff0000;
+      --toast-bg: #000000;
+      --toast-text: #ffffff;
+    }
 
-        /* TEMA: Invertido */
-        html.theme-inverted {
-            --bg-primary: #18181b;
-            --bg-card: #27272a;
-            --text-primary: #f4f4f5;
-            --text-secondary: #e4e4e7;
-            --accent-color: #f59e0b;
-            --accent-hover: #d97706;
-            --border-color: #52525b;
-            --focus-ring: #f59e0b;
-        }
+    /* Tema Invertido */
+    html.theme-inverted {
+      --bg-color: #121212;
+      --card-bg: #1e1e1e;
+      --text-color: #e0e0e0;
+      --primary-color: #bb86fc;
+      --primary-hover: #9955e8;
+      --btn-text: #000000;
+      --border-color: #444444;
+      --focus-ring: #03dac6;
+      --toast-bg: #bb86fc;
+      --toast-text: #000000;
+    }
 
-        /* FONTES DYSLEXIC / LEGÍVEIS */
-        html.dyslexic-font body {
-            font-family: 'Courier New', Courier, monospace, sans-serif !important;
-            letter-spacing: 0.08em !important;
-        }
+    /* Fonte Disléxica / Leitura Fácil */
+    html.dyslexic-font {
+      --font-family-base: var(--font-family-dyslexic);
+      letter-spacing: 0.08em;
+      word-spacing: 0.15em;
+    }
 
-        html {
-            font-size: calc(var(--base-font-size) * var(--font-scale));
-            line-height: var(--line-height-factor);
-            letter-spacing: var(--letter-spacing);
-            scroll-behavior: smooth;
-        }
+    /* Cursor Gigante para Baixa Visão */
+    html.large-cursor, html.large-cursor * {
+      cursor: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 24 24" fill="black" stroke="white" stroke-width="1.5"><path d="M3 3l7 18 3-7 7-3L3 3z"/></svg>'), auto !important;
+    }
 
-        body {
-            background-color: var(--bg-primary);
-            color: var(--text-primary);
-            transition: background-color 0.2s ease, color 0.2s ease;
-            font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
-        }
+    html {
+      font-size: calc(16px * var(--font-scale));
+      box-sizing: border-box;
+      scroll-behavior: smooth;
+    }
 
-        /* Destaque numérico e de bordas hiper-visíveis */
-        .accessible-card {
-            background-color: var(--bg-card);
-            border: 3px solid var(--border-color);
-            color: var(--text-primary);
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
-        }
+    *, *:before, *:after {
+      box-sizing: inherit;
+    }
 
-        /* Indicador de Foco Ultra Visível para navegação por Teclado (WCAG AAA) */
-        *:focus-visible {
-            outline: 5px solid var(--focus-ring) !important;
-            outline-offset: 4px !important;
-            border-radius: 4px;
-        }
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: var(--font-family-base);
+      line-height: 1.6;
+      background-color: var(--bg-color);
+      color: var(--text-color);
+      transition: background-color 0.2s, color 0.2s;
+    }
 
-        /* Estilização dos Botões da Barra de Ferramentas */
-        .btn-access {
-            background-color: var(--bg-card);
-            color: var(--text-primary);
-            border: 2px solid var(--border-color);
-            font-weight: 800;
-            padding: 0.5rem 0.85rem;
-            border-radius: 0.5rem;
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            gap: 0.4rem;
-            cursor: pointer;
-            transition: transform 0.1s ease, background-color 0.2s ease;
-        }
+    /* ==========================================================================
+       2. Barra de Acessibilidade
+       ========================================================================== */
+    .accessibility-bar {
+      background-color: var(--card-bg);
+      border-bottom: 3px solid var(--border-color);
+      padding: 0.75rem 1rem;
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+      box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+    }
 
-        .btn-access:hover {
-            background-color: var(--accent-color);
-            color: #ffffff;
-            transform: translateY(-2px);
-        }
+    .toolbar-container {
+      max-width: 1100px;
+      margin: 0 auto;
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: 0.75rem;
+    }
 
-        html.theme-high-contrast-dark .btn-access:hover {
-            color: #000000;
-        }
+    .controls-group {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 0.5rem;
+    }
 
-        .btn-primary {
-            background-color: var(--accent-color);
-            color: #ffffff;
-            border: 3px solid var(--border-color);
-            font-weight: 800;
-        }
+    .access-btn {
+      background-color: var(--primary-color);
+      color: var(--btn-text);
+      border: 2px solid var(--border-color);
+      padding: 0.6rem 0.9rem;
+      font-size: 0.95rem;
+      font-weight: bold;
+      border-radius: 6px;
+      cursor: pointer;
+      min-width: 44px;
+      min-height: 44px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.4rem;
+      transition: background-color 0.2s, transform 0.1s;
+    }
 
-        html.theme-high-contrast-dark .btn-primary {
-            color: #000000;
-            background-color: var(--text-primary);
-        }
+    .access-btn:hover {
+      background-color: var(--primary-hover);
+    }
 
-        .btn-primary:hover {
-            opacity: 0.9;
-            transform: scale(1.02);
-        }
+    .access-btn:focus-visible, a:focus-visible, button:focus-visible {
+      outline: 4px solid var(--focus-ring);
+      outline-offset: 3px;
+    }
 
-        /* Indicador do tamanho da fonte atual */
-        .font-indicator-badge {
-            background-color: var(--accent-color);
-            color: #ffffff;
-            font-weight: bold;
-            padding: 0.2rem 0.6rem;
-            border-radius: 9999px;
-            font-size: 0.85rem;
-        }
+    .display-badge {
+      font-weight: bold;
+      padding: 0.4rem 0.7rem;
+      border: 1px dashed var(--border-color);
+      border-radius: 4px;
+    }
 
-        html.theme-high-contrast-dark .font-indicator-badge {
-            color: #000000;
-            background-color: var(--text-primary);
-        }
+    /* Menu Dropdown de Contraste */
+    .dropdown-wrapper {
+      position: relative;
+    }
 
-        /* Classe de aviso / notificacao acessivel */
-        #accessible-toast {
-            position: fixed;
-            bottom: 1.5rem;
-            right: 1.5rem;
-            z-index: 9999;
-            background-color: var(--bg-card);
-            color: var(--text-primary);
-            border: 3px solid var(--accent-color);
-            padding: 1rem 1.5rem;
-            border-radius: 0.75rem;
-            box-shadow: 0 10px 25px rgba(0,0,0,0.3);
-            display: none;
-            max-width: 90vw;
-        }
+    .dropdown-menu {
+      position: absolute;
+      top: 105%;
+      right: 0;
+      background-color: var(--card-bg);
+      border: 2px solid var(--border-color);
+      border-radius: 6px;
+      padding: 0.5rem;
+      display: flex;
+      flex-direction: column;
+      gap: 0.4rem;
+      min-width: 210px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+      z-index: 1001;
+    }
 
-        /* Esconder visualmente mantendo acessível para leitores de tela */
-        .sr-only-focusable:not(:focus):not(:focus-within) {
-            position: absolute;
-            width: 1px;
-            height: 1px;
-            padding: 0;
-            margin: -1px;
-            overflow: hidden;
-            clip: rect(0, 0, 0, 0);
-            white-space: nowrap;
-            border: 0;
-        }
+    .dropdown-menu.hidden {
+      display: none;
+    }
 
-        /* Cursor Ampliado para facilidade de apontamento */
-        html.large-cursor, html.large-cursor * {
-            cursor: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="36" height="36" viewBox="0 0 24 24" fill="%23ffff00" stroke="%23000000" stroke-width="2"><path d="M3 3l7 18 3-7 7-3L3 3z"/></svg>'), auto !important;
-        }
+    .menu-item {
+      width: 100%;
+      text-align: left;
+      justify-content: flex-start;
+    }
+
+    /* Layout do Conteúdo */
+    main {
+      max-width: 900px;
+      margin: 2rem auto;
+      padding: 0 1rem;
+    }
+
+    .card {
+      background-color: var(--card-bg);
+      border: 2px solid var(--border-color);
+      border-radius: 8px;
+      padding: 1.8rem;
+      margin-bottom: 1.5rem;
+    }
+
+    .shortcuts-box {
+      background-color: var(--card-bg);
+      border: 2px dashed var(--border-color);
+      padding: 1rem;
+      border-radius: 6px;
+      margin-top: 1rem;
+    }
+
+    kbd {
+      background-color: var(--border-color);
+      color: var(--text-color);
+      padding: 0.2rem 0.4rem;
+      border-radius: 4px;
+      font-weight: bold;
+    }
+
+    /* Caixa Toast Acessível */
+    #accessible-toast {
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      background-color: var(--toast-bg);
+      color: var(--toast-text);
+      padding: 1rem 1.5rem;
+      border-radius: 8px;
+      border: 2px solid var(--border-color);
+      box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+      font-weight: bold;
+      z-index: 2000;
+      display: none;
+    }
